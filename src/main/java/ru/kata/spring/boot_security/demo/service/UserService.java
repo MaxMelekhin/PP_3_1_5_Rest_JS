@@ -16,7 +16,6 @@ import ru.kata.spring.boot_security.demo.repository.UserRepository;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 
@@ -66,7 +65,7 @@ public class UserService implements UserDetailsService {
     public void save(User user) {
 
         if (user.getPassword().isEmpty()) {
-            user.setPassword(Objects.requireNonNull(userRepository.findById(user.getUser_id()).orElse(null)).getPassword());
+            user.setPassword(userRepository.findById(user.getUser_id()).get().getPassword());
         } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }

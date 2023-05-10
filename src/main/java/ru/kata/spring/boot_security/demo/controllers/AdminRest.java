@@ -3,7 +3,7 @@ package ru.kata.spring.boot_security.demo.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
@@ -14,6 +14,7 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
+@PreAuthorize("hasRole('ADMIN')")
 @RequestMapping("/api/admin")
 public class AdminRest {
     private final UserService userService;
@@ -24,6 +25,7 @@ public class AdminRest {
         this.userService = userService;
         this.roleService = roleService;
     }
+
 
     @GetMapping
     public ResponseEntity<List<User>> showAllUsers() {
@@ -50,7 +52,7 @@ public class AdminRest {
 
 
     @GetMapping("/roles")
-    public  ResponseEntity<List<Role>> showAllRoles() {
+    public ResponseEntity<List<Role>> showAllRoles() {
         return new ResponseEntity<>(roleService.findAll(), HttpStatus.OK);
     }
 

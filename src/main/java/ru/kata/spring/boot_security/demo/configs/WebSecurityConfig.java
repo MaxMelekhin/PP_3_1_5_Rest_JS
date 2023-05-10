@@ -16,7 +16,7 @@ import ru.kata.spring.boot_security.demo.service.UserService;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final SuccessUserHandler successUserHandler;
-    private UserService userService;
+    private final UserService userService;
 
     private final PasswordEncoder passwordEncoder;
 
